@@ -15,19 +15,29 @@ class TicketForm
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->required(),
+                    ->required()
+                    ->maxLength(120) // Match DB Migration
+                    ->columnSpanFull(),
+
                 Select::make('status')
+                    ->required()
                     ->options(TicketStatus::class)
-                    ->default('open')
-                    ->required(),
+                    ->default(TicketStatus::Open)
+                    ->native(false),
+
                 Select::make('priority')
+                    ->required()
                     ->options(TicketPriority::class)
-                    ->default('normal')
-                    ->required(),
+                    ->default(TicketPriority::Normal)
+                    ->native(false),
+
                 TextInput::make('assigned_to_user_id')
-                    ->numeric(),
-                TextInput::make('created_by_user_id')
-                    ->numeric(),
+                    ->label('Assigned to')
+                    ->relationship('assignedTo', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->nullable()
+                    ->native(false),
             ]);
     }
 }
