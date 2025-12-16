@@ -7,7 +7,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Ticket extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'status',
+        'priority',
+        'assigned_to_user_id',
+        'created_by_user_id',
+    ];
+
+
+    protected $casts = [
+        'status' => \App\Enums\TicketStatus::class,
+        'priority' => \App\Enums\TicketPriority::class,
+    ];
 
     public function assignedTo(): BelongsTo
     {
