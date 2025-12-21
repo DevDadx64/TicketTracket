@@ -18,4 +18,11 @@ class EditTicket extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    public function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['updated_by_user_id'] = auth()->id();
+
+        return $data;
+    }
 }

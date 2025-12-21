@@ -19,7 +19,7 @@ class TicketsTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->with(['assignedTo', 'createdBy']))
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['assignedTo', 'createdBy', 'updatedBy']))
 
             ->columns([
                 TextColumn::make('title')
@@ -35,11 +35,17 @@ class TicketsTable
 
                 TextColumn::make('assignedTo.name')
                     ->label('Assigned to')
-                    ->sortable(),
+                    ->sortable()
+                    ->placeholder('Unassigned'),
 
                 TextColumn::make('createdBy.name')
                     ->label('Created by')
                     ->sortable(),
+
+                TextColumn::make('updatedBy.name')
+                    ->label('Updated by')
+                    ->sortable()
+                    ->placeholder('--'),
 
                 TextColumn::make('created_at')
                     ->dateTime('d.m.Y H:i:s')

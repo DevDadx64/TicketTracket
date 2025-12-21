@@ -11,7 +11,8 @@ class Ticket extends Model
         'title',
         'assigned_to_user_id',
         'created_by_user_id',
-        'status',
+        'updated_by_user_id',
+//        'status',
         'priority',
     ];
 
@@ -29,5 +30,10 @@ class Ticket extends Model
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by_user_id');
+    }
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by_user_id');
     }
 }

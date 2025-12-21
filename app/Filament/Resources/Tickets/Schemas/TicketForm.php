@@ -38,6 +38,12 @@ class TicketForm
                     ->preload()
                     ->nullable()
                     ->native(false),
+
+                Select::make('updated_by_user_id')
+                    ->label('Updated by')
+                    ->relationship('updatedBy', 'name')
+                    ->nullable(),
             ]);
+
     }
 }
